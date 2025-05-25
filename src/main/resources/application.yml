@@ -1,0 +1,11 @@
+micronaut:
+  application:
+    name: micronaut-sample
+  server:
+    port: 8084
+    host: localhost
+  
+netty:
+  default:
+    allocator:
+      max-order: 3
