@@ -10,6 +10,8 @@ plugins {
 version = "0.1"
 group = "com.example"
 
+val kotlinVersion = "1.9.10"
+
 repositories {
     mavenCentral()
 }
@@ -23,8 +25,8 @@ dependencies {
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     
     runtimeOnly("ch.qos.logback:logback-classic")
     
@@ -40,23 +42,19 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "11"
-        }
-    }
-    compileTestKotlin {
-        kotlinOptions {
-            jvmTarget = "11"
-        }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
-graalvmNative.toolchainDetection = false
+graalvmNative {
+    toolchainDetection.set(false)
+}
 
 micronaut {
     runtime("netty")
