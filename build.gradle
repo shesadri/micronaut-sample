@@ -10,6 +10,9 @@ plugins {
 version = "0.1"
 group = "com.example"
 
+// Define Kotlin version
+val kotlinVersion = "1.9.10"
+
 repositories {
     mavenCentral()
 }
